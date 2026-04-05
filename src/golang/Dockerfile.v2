@@ -19,11 +19,12 @@ WORKDIR /app
 COPY --from=builder /app/main .
 ADD public public
 ADD templates templates
+RUN mv public/style-v2.css public/style.css
 
 RUN apk --no-cache add curl
 
 ENV GIN_MODE=release PORT=3000
-ENV INSTANCE_NAME=dov-bear
+ENV INSTANCE_NAME=dov-bear-v2
 
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
 	CMD curl -fs http://localhost:${PORT}/healthz
